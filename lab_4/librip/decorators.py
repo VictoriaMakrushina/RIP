@@ -3,10 +3,26 @@
 # Если функция вернула список (list), то значения должны выводиться в столбик
 # Если функция вернула словарь (dict), то ключи и значения должны выводить в столбик через знак равно
 # Пример из ex_4.py:
-# @print_result
-# def test_1():
-#     return 1
-#
+# @print_re
+def func_print(items):
+        if type(items) == list:
+            for i in items:
+                print(i)
+        elif type(items) == dict:
+            for key in items:
+                print('%s = %s' % (key, items[key]))
+        else:
+            print(items)
+        return items    
+    
+def print_result(your_func):
+    def get_arg(*args, **kwargs):
+        print(your_func.__name__)
+        res = func_print(your_func(*args, **kwargs))
+        return res
+
+    return get_arg
+# 
 # @print_result
 # def test_2():
 #     return 'iu'

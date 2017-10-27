@@ -22,7 +22,7 @@ for x in d2:
     print(x, end=', ')
 print('\n')
 
-d3 = Unique(data2 )
+d3 = Unique(data2)
 for x in d3:
     print(x, end=', ')
 print('\n')

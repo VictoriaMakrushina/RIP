@@ -2,42 +2,13 @@
 class Unique(object):
     def __init__(self, items, **kwargs):
         
-        assert len(items) > 0
         
-        ignor_case = False
+        self.lst = items
+        self.ignore_case = False
+        if 'ignore_case' in kwargs:
+            self.ignore_case = kwargs['ignore_case']
+        self.newlst = set()    
         
-        for key in kwargs:
-            ignor_case = kwargs[key]
-        self.lst = list(map(str, items))
-        
-        
-#       if ignor_case is False:
-#            self.lst.sort(key=lambda x: x.lower())
- #       else:
-  #          self.lst.sort()
-           
-            
-        self.newlst = []
-        counter = 0
-        self.newlst.append(self.lst[0])
-#        for i in self.lst:
-        if ignor_case is False:
-                a=set()
-                for i in self.lst:
-                   m= self.lst[counter].lower()
-                   a.add(m)
-                   self.newlst=list(a)
- #               if i.lower() != self.newlst[counter].lower():
- #                  self.newlst.append(i)
-                   counter += 1
-        elif ignor_case is True:
-                a=set(self.lst)
-                self.newlst=list(a)
-  #              if i != self.newlst[counter]:
-  #                  self.newlst.append(i)
-  #                  counter += 1
-
-        self.index = -1    
         # Нужно реализовать конструктор
         # В качестве ключевого аргумента, конструктор должен принимать bool-параметр ignore_case,
         # в зависимости от значения которого будут считаться одинаковые строки в разном регистре
@@ -48,10 +19,30 @@ class Unique(object):
 
     def __next__(self):
         # Нужно реализовать __next__    
-        if self.index >= len(self.newlst) - 1:
-            raise StopIteration
-        self.index += 1
-        return self.newlst[self.index]
+#        if self.index >= len(self.newlst) - 1:
+#            raise StopIteration
+        
+          for i in self.lst:
+             if type(i) != int: 
+                if self.ignore_case is True:
+                    if i.lower() not in self.newlst:
+                        self.newlst.add(i.lower())
+                        return i
+                elif self.ignore_case is False :
+                    if i not in self.newlst:
+                        self.newlst.add(i)
+                        return i
+             else:
+                 if i not in self.newlst:
+                   self.newlst.add(i)
+                   return i
+      
+          raise StopIteration()   
+            
+            
+            
+#        self.index += 1
+#        return self.newlst[self.index]
 
     def __iter__(self):
         return self
